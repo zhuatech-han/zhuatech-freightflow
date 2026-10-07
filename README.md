@@ -1,3 +1,5 @@
+[中文](README.md) | [English](README.en.md)
+
 <div align="center">
 <img src="frontend/public/brand/logo.jpg" width="56" alt="知华科技 LOGO">
 <h1>知华运输与运费结算 · FreightFlow</h1>
@@ -6,7 +8,7 @@
 <p><b>1.0.0 · 公开源码学习版 / 非商业源码版</b></p>
 </div>
 
-A self-hosted road-freight workflow with Chinese / English UI, driver assignment, photo proof of delivery, independent reviews, receivable/payable statements and manual settlement ledgers. This is a **non-commercial source edition**, not an OSI-approved open-source licence. Commercial use requires written permission; see [LICENSE](LICENSE).
+基于 Java 21／Spring Boot、Vue 3、MySQL 与 Flyway 的公路运输和运费结算系统，提供中英文界面、司机指派、照片回单、独立复核、应收应付对账与人工结算台账。本项目属于**源码公开、非商业使用**，并非 OSI 标准开源许可；商业使用须取得书面授权，见 [LICENSE](LICENSE)。
 
 ## 一票货、一趟车、两边账
 
@@ -36,21 +38,49 @@ A self-hosted road-freight workflow with Chinese / English UI, driver assignment
 | --- | --- |
 | ![登录](docs/images/screenshots/login.png) | ![客户首页](docs/images/screenshots/customer-home.png) |
 
+登录：以实际账号进入授权工作空间。客户首页：查看本人托运、签收与应收对账。
+
 ![调度运单与配载](docs/images/screenshots/dispatch.png)
+
+调度运单与配载：报价、安排车次并校验重量、体积和件数。
+
 ![手机司机回单](docs/images/screenshots/driver-mobile.png)
+
+手机司机回单：本人关联车次接单、发车与上传签收照片。
+
 ![回单复核与运输记录](docs/images/screenshots/shipment.png)
+
+回单复核与运输记录：查看实际照片、签收和异常证据。
+
 ![财务对账与原始流水](docs/images/screenshots/settlement.png)
+
+财务对账与原始流水：冻结账单，登记实际收付款及关联冲正。
+
 ![经营统计](docs/images/screenshots/reports.png)
+
+经营统计：按授权范围查看期间收入成本利润、净现金和未结余额。
+
 ![账号管理](docs/images/screenshots/accounts.png)
+
+账号管理：维护客户、司机和内部岗位账号及启用状态。
+
 ![角色与数据权限](docs/images/screenshots/permissions.png)
+
+角色与数据权限：配置功能权限与实际关联数据范围。
+
 ![系统参数](docs/images/screenshots/settings.png)
+
+系统参数：配置允许调整的名称、币种及时区；已有业务后币种及时区锁定。
+
 ![English UI](docs/images/screenshots/english.png)
+
+英文界面：使用英文运输和管理页面。
 
 用户端与管理端共用登录入口，菜单及对象范围由数据库角色控制；不存在匿名自助注册或共享演示密码。详细流程见 [操作手册](docs/manual.md)。
 
 ## 从空库启动
 
-环境：Docker Engine 与 Docker Compose v2；或者 Java 21、Maven 3.9、Node.js 24.19.0+、npm、MySQL 8.4。建议为完整构建预留 4 GB 内存。首次拉取镜像及依赖需要可访问相应软件仓库。
+环境：Python 3、Docker Engine 与 Docker Compose v2；或者 Java 21、Maven 3.9、Node.js 24.19.0+、npm、MySQL 8.4。建议为完整构建预留 4 GB 内存。首次拉取镜像及依赖需要可访问相应软件仓库。
 
 ```sh
 python3 scripts/init-env.py
@@ -59,7 +89,7 @@ docker compose config --quiet
 docker compose up --build -d --wait --wait-timeout 240
 ```
 
-前端：http://127.0.0.1:8101/ 。健康检查：http://127.0.0.1:8101/actuator/health 。初始化管理员用户名默认 `admin`；密码由初始化脚本随机产生并写入权限为 0600 的 `.env`。脚本拒绝覆盖已有文件，无固定弱默认密码。系统首次启动创建管理员、五类角色、十四个权限、菜单、部门、支付方式字典及公司/币种/时区参数。已有库重启不重置账号密码。
+前端：[http://127.0.0.1:8101/](http://127.0.0.1:8101/)。健康检查：[http://127.0.0.1:8101/actuator/health](http://127.0.0.1:8101/actuator/health)。初始化管理员用户名默认 `admin`；密码由初始化脚本随机产生并写入权限为 0600 的 `.env`。脚本拒绝覆盖已有文件，无固定弱默认密码。系统首次启动创建管理员、五类角色、十四个权限、菜单、部门、支付方式字典及公司/币种/时区参数。已有库重启不重置账号密码。
 
 `SEED_DEMO=true` 可在新库创建明确标记 `DEMO` 的客户与承运商基础档案，不创建司机、业务账号、运单、车次或收入。实际运输前，在后台创建客户/司机/调度/财务账号，绑定档案并录入车辆；步骤见操作手册。
 
@@ -136,6 +166,10 @@ python3 scripts/smoke.py --base http://127.0.0.1:8101 --env .env --allow-test-wr
 
 本学习版本按现状提供。运营方应评估业务适配、权限、部署、备份恢复及使用地区要求；系统报表为业务统计，不替代法定会计、税务或支付对账。具体商业授权范围以书面合同为准。
 
+## 授权说明
+
+自有代码采用 [ZhuaTech Non-Commercial Source License 1.0](LICENSE)，仅限个人学习、技术研究与非商业交流。未经上海如静知华信息科技有限公司书面授权不得商用；企业私有化部署、收费交付与服务、SaaS 运营、转售及深度定制须另行授权。保留署名、官网、版权、许可证和授权联系方式，第三方依赖保留各自许可。本项目属于“源码公开、非商业使用”，并非 OSI 标准开源许可，不宣称未经验证的生产可用性。
+
 ## 联系知华科技
 
 本项目由知华科技（上海如静知华信息科技有限公司）提供公开源码学习版本，主要用于个人学习、技术研究与非商业交流。未经书面授权不得商用。企业信息化建设、中小企业数字化转型、中小企业 AI 转型、私有化部署、软件外包、软件项目外包、软件实施、FDE 外包、OPC 技术支持及深度定制开发，请访问知华科技官网 [https://www.zhuatech.cn/](https://www.zhuatech.cn/)，或添加微信 zhuatech、zhuatech2 咨询。
@@ -145,3 +179,5 @@ python3 scripts/smoke.py --base http://127.0.0.1:8101 --env .env --allow-test-wr
 - 自有源码许可见 [LICENSE](LICENSE)；第三方组件保留其原许可证。
 
 <table><tr><td align="center" width="260"><img src="docs/images/wechat-zhuatech.png" height="200" alt="知华科技微信咨询 zhuatech"><br>微信：zhuatech</td><td align="center" width="260"><img src="docs/images/wechat-zhuatech2.png" height="200" alt="知华科技微信咨询 zhuatech2"><br>微信：zhuatech2</td></tr></table>
+
+商业授权或深度定制开发请联系知华科技。
